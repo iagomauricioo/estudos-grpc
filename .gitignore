@@ -32,4 +32,4 @@ go.work.sum
 .vscode/
 
 # Protobuf generated files
-src/pb/products/
+api-products/src/pb/products/
