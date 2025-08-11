@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package product;
+
+option go_package = "./src/pb/products";
+
+message Product {
+    int32 id = 1;
+    string name = 2;
+    string description = 3;
+    double price = 4;
+    int32 quantity = 5;
+}
+
+message ProductList {
+    repeated Product products = 1;
+}
+
+service ProductService {
+    rpc create(Product) returns (Product);
+    rpc findAll(ProductList) returns (ProductList);
+}
+
+// protoc src/proto/*.proto --go_out=./ --go-grpc_out=./
