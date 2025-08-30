@@ -5,34 +5,35 @@ import (
 	"log"
 	"net"
 	"products/src/pb/products"
+	"products/src/repository"
 
 	"google.golang.org/grpc"
 )
 
 type server struct {
 	products.ProductServiceServer
+	productRepo *repository.ProductRepository
 }
 
 func (s *server) Create(ctx context.Context, product *products.Product) (*products.Product, error) {
-	return &products.Product{}, nil
+	newProduct, err := s.productRepo.Create(*product)
+	if err != nil {
+		return product, err
+	}
+	return &newProduct, nil
 }
 
 func (s *server) FindAll(ctx context.Context, product *products.ProductList) (*products.ProductList, error) {
-	return &products.ProductList{}, nil
-}
-
-func (s *server) FindById(ctx context.Context, product *products.Product) (*products.Product, error) {
-	return &products.Product{
-		Id:       int32(1),
-		Name:     "Product 1",
-		Price:    100,
-		Quantity: 10,
-	}, nil
+	productList, err := s.productRepo.FindAll()
+	if err != nil {
+		return nil, err
+	}
+	return &productList, nil
 }
 
 func main() {
 	log.Println("Starting gRPC server")
-	srv := server{}
+	srv := server{productRepo: &repository.ProductRepository{}}
 	listener, err := net.Listen("tcp", ":9090")
 
 	if err != nil {
