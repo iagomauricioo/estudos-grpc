@@ -12,16 +12,6 @@ type ProductRepository struct{}
 
 const filename string = "products.txt"
 
-func (pr *ProductRepository) LoadData() (products.ProductList, error) {
-	productList := products.ProductList{}
-	data, err := os.ReadFile(filename)
-	if err != nil {
-		return productList, fmt.Errorf("failed to read products file: %w", err)
-	}
-	err = proto.Unmarshal(data, &productList)
-	return productList, nil
-}
-
 func (pr *ProductRepository) SaveData(productList products.ProductList) error {
 	data, err := proto.Marshal(&productList)
 	if err != nil {
@@ -31,8 +21,18 @@ func (pr *ProductRepository) SaveData(productList products.ProductList) error {
 	return nil
 }
 
+func (pr *ProductRepository) FindAll() (products.ProductList, error) {
+	productList := products.ProductList{}
+	data, err := os.ReadFile(filename)
+	if err != nil {
+		return productList, fmt.Errorf("failed to read products file: %w", err)
+	}
+	err = proto.Unmarshal(data, &productList)
+	return productList, nil
+}
+
 func (pr *ProductRepository) Create(product products.Product) (products.Product, error) {
-	productList, err := pr.LoadData()
+	productList, err := pr.FindAll()
 	if err != nil {
 		return product, err
 	}
@@ -41,8 +41,4 @@ func (pr *ProductRepository) Create(product products.Product) (products.Product,
 	err = pr.SaveData(productList)
 
 	return product, err
-}
-
-func (pr *ProductRepository) FindAll() (products.ProductList, error) {
-	return pr.LoadData()
 }
