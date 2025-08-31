@@ -48,7 +48,7 @@ api-products/
 ### 1. Gerar código Go a partir do .proto
 
 ```bash
-# Na pasta api-products
+# Na pasta api-products_unary
 protoc src/proto/*.proto --go_out=./ --go-grpc_out=./
 ```
 
