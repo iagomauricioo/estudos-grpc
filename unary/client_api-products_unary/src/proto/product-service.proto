@@ -31,3 +31,4 @@ service ProductService {
 }
 
 // protoc src/proto/*.proto --go_out=./ --go-grpc_out=./
+// protoc src/proto/*.proto --grpc-java_out=./
