@@ -1,0 +1,11 @@
+id,name,email,income,department_id
+1,John,john@teste.com,100,1
+2,Maria,maria@teste.com,2500,2
+3,Pedro,pedro@teste.com,1800,1
+4,Ana,ana@teste.com,3200,3
+5,Lucas,lucas@teste.com,900,2
+6,Carla,carla@teste.com,4100,3
+7,Rafael,rafael@teste.com,1500,1
+8,Fernanda,fernanda@teste.com,2750,2
+9,Bruno,bruno@teste.com,3600,3
+10,Juliana,juliana@teste.com,2200,1
