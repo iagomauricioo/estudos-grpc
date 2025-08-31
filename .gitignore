@@ -32,6 +32,6 @@ go.work.sum
 .vscode/
 
 # Protobuf generated files
-api-products_unary/src/pb/
-client_api-products_unary/src/pb/
+*.pb.go
+
 
