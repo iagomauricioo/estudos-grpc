@@ -24,7 +24,7 @@ message ProductList {
 
 service ProductService {
     rpc Create(Product) returns (Product);
-    rpc FindAll(ProductList) returns (ProductList);
+    rpc FindAll(google.protobuf.Empty) returns (ProductList);
     rpc FindById(ProductId) returns (Product);
     rpc Update(Product) returns (Product);
     rpc Delete(ProductId) returns (google.protobuf.Empty);

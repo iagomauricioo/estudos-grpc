@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package product;
+
+option go_package = "./src/pb/products";
+
+import "google/protobuf/empty.proto";
+
+message Product {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  int32 quantity = 5;
+}
+
+message ProductId {
+  int32 id = 1;
+}
+
+message ProductList {
+  repeated Product products = 1;
+}
+
+service ProductService {
+  rpc Create(Product) returns (Product);
+  rpc FindAll(google.protobuf.Empty) returns (ProductList);
+  rpc FindById(ProductId) returns (Product);
+  rpc Update(Product) returns (Product);
+  rpc Delete(ProductId) returns (google.protobuf.Empty);
+}
+
+// protoc src/proto/*.proto --go_out=./ --go-grpc_out=./

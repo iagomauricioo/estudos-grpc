@@ -27,7 +27,7 @@ func (s *server) Create(ctx context.Context, product *products.Product) (*produc
 	return &newProduct, nil
 }
 
-func (s *server) FindAll(ctx context.Context, product *products.ProductList) (*products.ProductList, error) {
+func (s *server) FindAll(ctx context.Context, empty *emptypb.Empty) (*products.ProductList, error) {
 	productList, err := s.productRepo.FindAll()
 	if err != nil {
 		return nil, err
