@@ -5,6 +5,8 @@ import (
 	"context"
 	"io"
 	"log"
+	"os"
+	"strconv"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -17,14 +19,20 @@ func main() {
 		log.Fatalf("failed to create gRPC client: %v", err)
 	}
 
-	ListPersons(conn)
+	if len(os.Args) < 2 {
+		log.Fatalf("usage: go run main.go <departmentId>")
+	}
+
+	depID, err := strconv.Atoi(os.Args[1])
+
+	ListPersons(conn, int32(depID))
 
 	defer conn.Close()
 }
 
-func ListPersons(conn *grpc.ClientConn) {
+func ListPersons(conn *grpc.ClientConn, departmentID int32) {
 	personClient := department.NewDepartmentServiceClient(conn)
-	stream, err := personClient.ListPerson(context.Background(), &department.ListPersonRequest{DepartmentId: 1})
+	stream, err := personClient.ListPerson(context.Background(), &department.ListPersonRequest{DepartmentId: departmentID})
 
 	if err != nil {
 		log.Fatalln("failed to list person: ", err)
