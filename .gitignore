@@ -35,3 +35,7 @@ go.work.sum
 *.pb.go
 
 
+.venv/
+*.pyc
+pb/
+__pycache__/

@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package calc;
+
+option go_package = "./src/pb/calc";
+
+message Input {
+  int32 value = 1;
+  int32 index = 2;
+}
+
+message Output {
+  int32 quantity = 1;
+  double average = 2;
+  int32 sum = 3;
+}
+
+service CalcService {
+  rpc Calc(stream Input) returns (Output);
+}
+
+// python3 -m grpc_tools.protoc \     
+//   -I=src/proto \
+//   --python_out=src/pb \
+//   --grpc_python_out=src/pb \
+//   src/proto/calc-service.proto
